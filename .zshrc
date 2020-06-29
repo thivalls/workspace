@@ -153,3 +153,5 @@ zinit light-mode for \
 zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
+
+alias add="git add ."
