@@ -1,6 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 alias refresh="source ~/.zshrc"
+alias profile='code ~/.zshrc'
 
 # ENVIRONMENT
 export PATH="/usr/local/opt/node@12/bin:$PATH"
@@ -154,4 +155,14 @@ zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 
+# GIT ALIAS
 alias add="git add ."
+alias status="git status"
+alias push="git push origin master"
+alias upush="git push -u origin master"
+alias log="git log"
+alias pull="git pull"
+commit()
+{
+  git commit -m "$1"
+}
