@@ -162,6 +162,7 @@ alias push="git push origin master"
 alias upush="git push -u origin master"
 alias log="git log"
 alias pull="git pull"
+alias remote="git remove -v"
 commit()
 {
   git commit -m "$1"
