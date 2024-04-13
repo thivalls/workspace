@@ -1,0 +1,10 @@
+{
+    // WSL CONFIG
+    "security.allowedUNCHosts": [
+        "wsl.localhost"
+    ],
+
+    // EDITOR
+    "editor.fontFamily": "JetBrains Mono, Fira Code",
+    "editor.fontLigatures": true
+}
