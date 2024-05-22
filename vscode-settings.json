@@ -7,4 +7,11 @@
     // EDITOR
     "editor.fontFamily": "JetBrains Mono, Fira Code",
     "editor.fontLigatures": true
+    "editor.fontSize": 14,
+
+    //EXPLORER
+    "explorer.compactFolders": false,
+
+    // THEME
+    "workbench.colorTheme": "Dracula",
 }
