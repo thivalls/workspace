@@ -1,0 +1,9 @@
+[user]
+	name = valls
+	email = olavalls@gmail.com
+[core]
+	editor = code --wait
+[alias]
+    s = !git status -s
+    c = !git add --all && git commit -m
+    l = !git log -n 10 --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr'
