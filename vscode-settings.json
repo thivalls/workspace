@@ -1,12 +1,10 @@
 {
-    // WSL CONFIG
-    // "security.allowedUNCHosts": [
-    //     "wsl.localhost"
-    // ],
+    // TOP BAR
+    "window.commandCenter": true,
 
     // EDITOR
     "editor.fontFamily": "JetBrains Mono, Fira Code",
-    "editor.fontLigatures": true
+    "editor.fontLigatures": true,
     "editor.fontSize": 14,
 
     //EXPLORER
