@@ -1,4 +1,7 @@
 {
+    // GENERAL
+    "window.restoreWindows": "none", 
+
     // TOP BAR
     "window.commandCenter": true,
 
