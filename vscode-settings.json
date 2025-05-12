@@ -14,5 +14,6 @@
     "explorer.compactFolders": false,
 
     // THEME
-    "workbench.colorTheme": "Dracula",
+    "workbench.colorTheme": "Dracula Theme",
+    "workbench.iconTheme": "vscode-icons",
 }
