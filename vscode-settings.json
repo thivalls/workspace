@@ -17,7 +17,7 @@
     },
     "search.exclude": {
         "**/__pycache__/": true
-    }
+    },
 
     // THEME
     "workbench.colorTheme": "Dracula Theme",
