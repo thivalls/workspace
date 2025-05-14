@@ -12,6 +12,12 @@
 
     //EXPLORER
     "explorer.compactFolders": false,
+    "files.exclude": {
+        "**/__pycache__/": true
+    },
+    "search.exclude": {
+        "**/__pycache__/": true
+    }
 
     // THEME
     "workbench.colorTheme": "Dracula Theme",
