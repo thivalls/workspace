@@ -3,7 +3,7 @@
     "window.restoreWindows": "none", 
 
     // TOP BAR
-    "window.commandCenter": true,
+    "window.commandCenter": false,
 
     // EDITOR
     "editor.fontFamily": "JetBrains Mono, Fira Code",
