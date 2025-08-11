@@ -1,0 +1,197 @@
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#######################################################################
+############################# START Alias #############################
+#######################################################################
+alias python='python3'
+alias create_venv='python -m venv venv'
+alias use_venv='source venv/bin/activate'
+alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+
+alias home='cd ~'
+alias ws='cd ~/workspace'
+alias projects='cd ~/workspace/projects'
+alias food='cd ~/workspace/food2c'
+alias gestao='cd ~/workspace/projects/personal/gestao-loc'
+alias refresh='source ~/.zshrc'
+alias gestao_remote='sshpass -p "Codeispoetry7@" ssh -p 65002 u145468865@85.31.229.83'
+alias quimea_remote='sshpass -p "Quimea@7" ssh -p 65002 u568870734@147.93.37.122'
+
+# SERVERLESS
+# function deploy created under this file
+alias deploy='deploy_app'
+
+# GIT
+alias branchs='git --no-pager branch'
+alias main='git_checkout main'
+alias dev='git_checkout develop'
+alias go='git_checkout'
+alias work='git_checkout_b'
+alias rb='git_remove_b'
+alias clear_local_branchs='git branch | grep -v "main\|develop" | xargs git branch -D'
+
+# PROFILE Edit
+alias profile='code ~/.zshrc'
+alias me='code ~/.my_zshrc'
+
+# Docker
+alias di='docker images'
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+alias drmi='docker rmi $(docker images -a -q)'
+alias drmif='docker rmi $(docker images -a -q) -f'
+alias drm='docker rm $(docker ps -a -q)'
+alias drmf='docker rm $(docker ps -a -q) -f'
+alias dsa='docker stop $(docker ps -a -q)'
+alias mongo='docker start mongo'
+#######################################################################
+############################# END Alias #############################
+#######################################################################
+
+# Functions
+kill_port() {
+    local port=$1
+    if [ -z "$port" ]; then
+        echo "Usage: kill_process_on_port <port>"
+        return 1
+    fi
+    echo "Killing process on port $port..."
+    lsof -t -i :$port | xargs kill -9
+}
+
+git_reset() {
+    local branch=$1
+    if [ -z "$branch" ]; then
+        echo "\n"
+        echo "   Ops! Specify the branch"
+        echo "\n"
+        return 1
+    fi
+    
+    # Verifica se a branch existe
+    if ! git branch --list | grep -qw "$branch"; then
+        echo -e "\n   Ops! Branch '$branch' does not exist.\n"
+        return 1
+    fi
+    
+    echo "\n"
+    echo "   Sync with branch $branch..."
+    echo "\n"
+    git fetch --all; git reset --hard origin/$branch
+}
+
+cpm() {
+    git fetch --all; git reset --hard origin/main
+}
+
+cpd() {
+    git fetch --all; git reset --hard origin/develop
+}
+
+git_checkout() {
+    local branch=$1
+    if [ -z "$branch" ]; then
+        echo "\n"
+        echo "   Ops! Specify the branch"
+        echo "\n"
+        return 1
+    fi
+
+    # Verifica se a branch existe
+    if ! git branch --list | grep -qw "$branch"; then
+        echo -e "\n   Ops! Branch '$branch' does not exist.\n"
+        return 1
+    fi
+
+    echo "\n"
+    echo "   Changing to branch $branch..."
+    echo "\n"
+    git checkout $branch
+}
+
+git_checkout_b() {
+    local task_id=$1
+    if [ -z "$task_id" ]; then
+        echo "\n"
+        echo "   Ops! Specify the task id"
+        echo "\n"
+        return 1
+    fi
+
+    echo "\n"
+    echo "   Creating branch f2c-$task_id..."
+    echo "\n"
+    git checkout -b f2c-$task_id
+}
+
+git_remove_b() {
+    local branch=$1
+    if [ -z "$branch" ]; then
+        echo "\n"
+        echo "   Ops! Specify the branch to remove"
+        echo "\n"
+        return 1
+    fi
+
+    echo "\n"
+    echo "   Removing branch $branch"
+    echo "\n"
+
+    git push origin --delete $branch && git branch -D $branch
+}
+
+deploy_app() {
+  ENV="dev"
+  COMMAND="sls deploy"
+
+  if [ "$1" = "prod" ]; then
+    ENV="prod"
+    COMMAND="sls deploy --stage prod"
+  fi
+
+  echo -n "Deseja realizar deploy no ambiente $ENV? (y/n) "
+  read -r REPLY
+
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    /bin/zsh -c $COMMAND
+  else
+    echo "Deploy cancelado."
+  fi
+}
+
+###########################################################
+####################### PHP MANAGER #######################
+###########################################################
+
+# phpls() {
+#     phpbrew list
+# }
+
+# phps() {
+#     phpbrew switch "$1"
+# }
+
+
+###### SPECIFIC ALIASES FOOD ######
+alias hash='python ~/workspace/scripts/hash.py'
+alias coupon_code='python ~/workspace/scripts/coupon_code.py'
+alias relatorio='run_rel'
+alias mongo='docker start mongo-pop'
+
+run_rel() {
+    # /home/valls/workspace/projects/food2c/vc_server/venv/bin/python /home/valls/workspace/projects/food2c/vc_server/verde_campo/reports/ecommerce_user/ecommerce_user.py --config=prod
+    cd /home/valls/workspace/food2c/vc_server && /home/valls/workspace/food2c/vc_server/venv/bin/python /home/valls/workspace/food2c/vc_server/verde_campo/reports/ecommerce_user/ecommerce_user.py --config=prod
+}
+
+export AUTHORIZER="{
+  \"lambdas_enableds\": \"['fullAccess']\", 
+  \"warehouses_enableds\": \"['FULL']\", 
+  \"sources_enableds\": \"['SCALA_DB_TESTE', 'FRESHMANIA_DB_TESTE', 'RAIAR_DB_TESTE', 'FAZENDA_BELA_VISTA_DB_TESTE', 'DAMM_DB_TESTE']\", 
+  \"integrationLatency\": 123, 
+  \"principalId\": \"123\"
+}"
+
+export CODEARTIFACT_AUTH_TOKEN="eyJ2ZXIiOjEsImlzdSI6MTc1MzIwNDU0NiwiZW5jIjoiQTEyOEdDTSIsInRhZyI6ImNIOEZsalViUHlZOXdwa0VvSnNFa0EiLCJleHAiOjE3NTMyNDc3NDYsImFsZyI6IkExMjhHQ01LVyIsIml2IjoiLXBEYUEyVVRpeVZrd01RNCJ9.AIOtkbkZ6KNfof2xN8mnfg.rd62aATp3tzyhPiG.gUvPSp78hI7a3zvZnpiqis5MVulCw9iM0GHGpRQFJqOH7nu4-x0-IaTDVjwXjU2x6grn8R0c4B8q-ujylJmi2PXxQLIhafj1GtAwZOqvaiAXXmD5dC-5JTti13_1XrddW-muczRX4DrRKaaaAVzlLQ9fNe0We-_ExEeaslNAwadw-eT-F8qAfpqUUxXpBXX0WjzREa07GGHijmUL4b0tB4UQkvvrOBCJlUusSDtbkWgo33O-3KIXQMAIe6RguiJZv005cNk5aVG4WNWGuK5Zfz-1rvP56GYqqyIaFSnlDgMgeVygBxe9VqVbVwUxTxC65JZVhVtNIzOomBwwF0N17Rc8XFewSzDzB6d8RKoV8iaJLiYybYHhk_D8W6eCDwh4Pi8H71NeWi0swWJW9DhK0NtJMrb3EWAiF1erwFyHffpMv6fU1n4T0UpYFXo-TwfEETS5AE5fR4GhSOx7iOOxsJim_8wStAzd0194jeZyJk6ThS-2COmi4TIKxidusD4TaX0STEEZFrWiJqpBFxQg44PK4CsOevu0riF4hzuDj3-kHdmIcp_TjD1ZJCUoNwjbde6Kxe6Agqa6FbcVwy_V-DDZZL__qZosiVPrH5E4CA_uK_4TvZl0U-jYOljRkFGEx9Qa4fHFPjrjTZ87J-HspTGZJZPzX07QB3BgE3f2LmMX_z1aH7_uaMX33TwEmAt7FRwlZXJi_EXjQRKmSf3ZLUHBtf1IrvW10WRTCTMbQzsa9uAXmwgyODW9I99bmvO8Qd_M2JuIVCWcBYmPrjsJfnyqFXJxbP15taeFD2MyT0YatoTsxLHC3FKh4XmKdgI3V2IJH_yGY_o0ikuOf9QI6oNz6nM2Q0eYnmoSoLykqYngOVx4C-DDxLyN9olsoNHJMl3wC1MC29lWOhYlxOGeqqK1Kc_s7x7c5LkyTI2ktP3DbmQ11imP0j_fM01dckAkH955ugphh7RP-62WUtCn6ZKW6cftTXSWeBzt-Ie5j8L6ZXlbzA.bnMyAVmqegBJ3InQpZtdrA"
+export PIP_INDEX_URL="https://aws:${CODEARTIFACT_AUTH_TOKEN}@food2c-471112537618.d.codeartifact.us-east-1.amazonaws.com/pypi/food2c-libs/simple/"
